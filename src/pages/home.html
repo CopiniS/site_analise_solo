@@ -7,6 +7,8 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="../css/style.css"> <!-- Caminho relativo -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
     <!-- CSS do Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -15,8 +17,10 @@
 
 
     <script type="module" src="../js/script.js"></script> <!-- Caminho relativo -->
+    <script type="module" src="../js/dinamic.js"></script> <!-- Caminho relativo -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <title>Home</title>
 </head>
 
@@ -30,7 +34,7 @@
             <h2 class="tool__header__subtitle">Cálculo do tipo e quantidade de calcário a ser aplicado para correção do
                 solo</h2>
         </div>
-        <div>
+        <div id="selectOptions">
             <div class="input-group">
                 <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
                     <option selected>Por favor, selecione como deseja importar seus dados</option>
@@ -39,20 +43,24 @@
                 </select>
             </div>
         </div>
-        
+
         <div id="pdfDiv" class="input-group" style="margin-top: 10px; display:none;">
             <input type="file" class="form-control" id="file-input" aria-describedby="inputGroupFileAddon04"
                 aria-label="Upload" accept="application/pdf">
             <div id="pdf-text"></div>
-            <button class="btn btn-outline-primary" type="button" id="inputGroupFileAddon04" onclick="processar()">Processar</button>
+            <button class="btn btn-outline-primary" type="button" id="inputGroupFileAddon04"
+                onclick="processar()">Processar</button>
         </div>
-        
-        <div id="resultDiv" class="input-group" style="margin-top: 10px; display:none;">
-            <span>Foram encontradas</span>
-            <span id="amostras"></span>
-            <span>amostras</span>
+
+        <div id="resultDiv" class="input-group" style="display:none;">
+            <div style="display: ruby-text;"> 
+                <h3>Foram encontradas</h3>
+                <h3 id="amostras"></h3>
+                <h3>amostras</h3>
+            </div>
+            <div id="showAmostras"></div>
         </div>
-        
+
 
         <div id="formDiv" class="input-group" style="margin-top: 10px; display:none;">
             <h2 class="tool__header__subtitle" style="margin-bottom: 10px">Por favor, preencha os dados corretamente
@@ -95,7 +103,7 @@
                 <textarea class="form-control" aria-label="With textarea"></textarea>
             </div>
             <p> </p>
-                <button type="button" class="btn btn-success" disabled>Primary button</button>
+            <button type="button" class="btn btn-success" disabled>Primary button</button>
         </div>
     </div>
 </body>
