@@ -16,7 +16,7 @@
 
     <script type="module" src="../js/script.js"></script> <!-- Caminho relativo -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
     <title>Home</title>
 </head>
 
@@ -39,12 +39,20 @@
                 </select>
             </div>
         </div>
-
+        
         <div id="pdfDiv" class="input-group" style="margin-top: 10px; display:none;">
-            <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04"
-                aria-label="Upload">
-            <button class="btn btn-outline-primary" type="button" id="inputGroupFileAddon04">Processar</button>
+            <input type="file" class="form-control" id="file-input" aria-describedby="inputGroupFileAddon04"
+                aria-label="Upload" accept="application/pdf">
+            <div id="pdf-text"></div>
+            <button class="btn btn-outline-primary" type="button" id="inputGroupFileAddon04" onclick="processar()">Processar</button>
         </div>
+        
+        <div id="resultDiv" class="input-group" style="margin-top: 10px; display:none;">
+            <span>Foram encontradas</span>
+            <span id="amostras"></span>
+            <span>amostras</span>
+        </div>
+        
 
         <div id="formDiv" class="input-group" style="margin-top: 10px; display:none;">
             <h2 class="tool__header__subtitle" style="margin-bottom: 10px">Por favor, preencha os dados corretamente
