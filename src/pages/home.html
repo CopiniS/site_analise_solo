@@ -53,12 +53,30 @@
         </div>
 
         <div id="resultDiv" class="input-group" style="display:none;">
-            <div style="display: ruby-text;"> 
-                <h3>Foram encontradas</h3>
+            <div style="display: ruby-text;">
+                <h3>Foram encontrada(s)</h3>
                 <h3 id="amostras"></h3>
                 <h3>amostras</h3>
             </div>
             <div id="showAmostras"></div>
+        </div>
+
+        <div class="modal fade" id="detalhesModal" tabindex="-1" aria-labelledby="detalhesModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="detalhesModalLabel">Detalhes</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="modal-content"></p> <!-- Modal Dinâmico -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+            </div>
         </div>
 
 
