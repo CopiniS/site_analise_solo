@@ -1,4 +1,4 @@
-
+import { criarDivs } from './dinamic.js';
 
 window.addEventListener('load', function () {
     const path = window.location.pathname;
@@ -55,11 +55,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 const pagePromises = [];
                 // verificação de colunas das amostras
                 let melichBoolean = false;
-                let caMg = false;
                 let prBoolean = false;
                 let intSMP = 0;
                 let intCTC = 0;
                 let intK = 0;
+                let intCa = 0;
+                let intMg = 0;
                 let intP = 0;
                 let intArgila = 0;
 
@@ -86,6 +87,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
                                     // considerando valores da primeira linha imutáveis.
                                     adicionarPropriedade("indice_smp", text.items[91].str.replace(/,/g, '.'));
+                                    adicionarPropriedade("calcio", text.items[95].str.replace(/,/g, '.'));
+                                    adicionarPropriedade("magnesio", text.items[97].str.replace(/,/g, '.'));
                                     adicionarPropriedade("ctc", text.items[101].str.replace(/,/g, '.'));
                                     adicionarPropriedade("potassio", text.items[105].str.replace(/,/g, '.'));
                                     amostrasIds.set(labNumber, dados);
@@ -94,26 +97,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
                                     // Valores de ref ao verificar próximas linhas.
                                     intSMP = 91;
+                                    intCa = 95;
+                                    intMg = 97;
                                     intCTC = 101;
                                     intK = 105;
                                     continue;
                                 }
 
-
                                 if (item.str === "(Ca+Mg)/K") {
-                                    console.log("(Ca+Mg)/K #########")
                                     melichBoolean = false;
-                                    caMg = true;
-                                    i += 2;
                                     continue;
                                 }
 
                                 if (item.str === "PR") {
-                                    console.log("PR")
                                     melichBoolean = false;
-                                    caMg = false;
                                     prBoolean = true;
                                     const labNumber = text.items[i += 2].str;
+
                                     if (amostrasIds.has(labNumber)) {
                                         const valorAtual = amostrasIds.get(labNumber);
 
@@ -142,10 +142,14 @@ document.addEventListener("DOMContentLoaded", function () {
                                             intSMP += 28;
                                             intCTC += 28;
                                             intK += 28;
+                                            intCa += 28;
+                                            intMg += 28;
 
                                             adicionarPropriedade("indice_smp", text.items[intSMP].str.replace(/,/g, '.'));
                                             adicionarPropriedade("ctc", text.items[intCTC].str.replace(/,/g, '.'));
                                             adicionarPropriedade("potassio", text.items[intK].str.replace(/,/g, '.'));
+                                            adicionarPropriedade("calcio", text.items[intCa].str.replace(/,/g, '.'));
+                                            adicionarPropriedade("magnesio", text.items[intMg].str.replace(/,/g, '.'));
                                             amostrasIds.set(value, dados);
 
                                             dados = {};
@@ -191,10 +195,13 @@ document.addEventListener("DOMContentLoaded", function () {
                     document.getElementById('amostras').innerText = amostrasIds.size;
 
                     var pdfDiv = document.getElementById("pdfDiv");
+                    var selectOptions = document.getElementById("selectOptions");
                     var resultDiv = document.getElementById("resultDiv");
                     pdfDiv.style.display = "none";
+                    selectOptions.style.display = "none";
                     resultDiv.style.display = "block";
 
+                    criarDivs(amostrasIds);
                 });
             });
         };
