@@ -80,49 +80,53 @@
         </div>
 
 
-        <div id="formDiv" class="input-group" style="margin-top: 10px; display:none;">
-            <h2 class="tool__header__subtitle" style="margin-bottom: 10px">Por favor, preencha os dados corretamente
-            </h2>
+        <div id="formDiv" class="input-group" style="margin-top: 10px; display: none;">
+            <h2 class="tool__header__subtitle" style="margin-bottom: 10px">Por favor, preencha os dados corretamente</h2>
+        
             <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">@</span>
-                <input type="text" class="form-control" placeholder="Username" aria-label="Username"
-                    aria-describedby="basic-addon1">
+                <span class="input-group-text">Fósforo</span>
+                <input type="text" class="form-control" id="fosforo" placeholder="Fósforo">
             </div>
-
+        
             <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Recipient's username"
-                    aria-label="Recipient's username" aria-describedby="basic-addon2">
-                <span class="input-group-text" id="basic-addon2">@example.com</span>
+                <span class="input-group-text">Potássio</span>
+                <input type="text" class="form-control" id="potassio" placeholder="Potássio">
             </div>
-
-            <div class="mb-3">
-                <label for="basic-url" class="form-label">Your vanity URL</label>
-                <div class="input-group">
-                    <span class="input-group-text" id="basic-addon3">https://example.com/users/</span>
-                    <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3 basic-addon4">
-                </div>
-                <div class="form-text" id="basic-addon4">Example help text goes outside the input group.</div>
-            </div>
-
+        
             <div class="input-group mb-3">
-                <span class="input-group-text">$</span>
-                <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-                <span class="input-group-text">.00</span>
+                <span class="input-group-text">Cálcio</span>
+                <input type="text" class="form-control" id="calcio" placeholder="Cálcio">
             </div>
-
+        
             <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Username" aria-label="Username">
-                <span class="input-group-text">@</span>
-                <input type="text" class="form-control" placeholder="Server" aria-label="Server">
+                <span class="input-group-text">Magnésio</span>
+                <input type="text" class="form-control" id="magnesio" placeholder="Magnésio">
             </div>
-
-            <div class="input-group">
-                <span class="input-group-text">With textarea</span>
-                <textarea class="form-control" aria-label="With textarea"></textarea>
+        
+            <div class="input-group mb-3">
+                <span class="input-group-text">Índice SMP</span>
+                <input type="text" class="form-control" id="indice_smp" placeholder="Índice SMP">
             </div>
-            <p> </p>
-            <button type="button" class="btn btn-success" disabled>Primary button</button>
+        
+            <div class="input-group mb-3">
+                <span class="input-group-text">CTC</span>
+                <input type="text" class="form-control" id="ctc" placeholder="CTC">
+            </div>
+        
+            <div class="input-group mb-3">
+                <span class="input-group-text">Argila</span>
+                <input type="text" class="form-control" id="argila" placeholder="Argila">
+            </div>
+        
+            <div class="input-group mb-3">
+                <span class="input-group-text">Área Plantada</span>
+                <input type="text" class="form-control" id="areaPlantada" placeholder="Área Plantada">
+            </div>
+        
+            <button type="button" class="btn btn-success" onclick="transformarEmJSON()">Transformar em JSON</button>
         </div>
+        
+        
     </div>
 </body>
 
