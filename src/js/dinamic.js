@@ -27,8 +27,10 @@ export function criarDivs(lista) {
                         <label for="floatingInputGrid_${chave}">Área plantada em Hectares</label>
                     </div>
                     <div style="margin-left: 10px">
+                        <div id="loading" style="display: none;"> </div>
                         <button type="button" class="btn btn-success">Calcular</button>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#detalhesModal">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#detalhesModal" disabled>
+                            Visualizar Resultados
                             <i class="fa fa-file-excel"></i>
                         </button>
                     </div>
@@ -37,20 +39,30 @@ export function criarDivs(lista) {
             <p></p>
         `;
 
+        const modalButton = div.querySelector('.btn-primary');
         const successButton = div.querySelector('.btn-success');
         successButton.addEventListener('click', async function () {
+            
             let path = "macieiras/pre-plantio/";
             const selectedRadio = div.querySelector(`input[name="inlineRadioOptions_${chave}"]:checked`);
             const tipoPlanta = selectedRadio ? selectedRadio.value : null;
-
+            
             if (!tipoPlanta) {
                 alert("Por favor, selecione um tipo de planta.");
                 return;
             } else if (selectedRadio.value === "option1") {
                 path = "gramineas-leguminosas-frias/pre-plantio/";
             }
+            
+            successButton.disabled = true;
 
-            console.log(selectedRadio.value);
+            const loading = document.getElementById('loading');
+            loading.innerHTML = `
+            <div class="spinner-border spinner-border-sm" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        `;
+            loading.style.display = "contents";
 
             // Referência ao campo de input dentro do div
             const areaPlantadaInput = div.querySelector(`#floatingInputGrid_${chave}`);
@@ -69,8 +81,17 @@ export function criarDivs(lista) {
 
             const response = await callAPI("POST", path, item);
             responseModals.set(chave, response);
+
+            const restoredButton = document.createElement('button');
+            restoredButton.classList.add('btn', 'btn-success');
+            restoredButton.type = 'button';
+            restoredButton.textContent = 'Calcular';
+
             console.log("Response:", response);
+            loading.style.display = "none";
             alert("Cálculo Realizado");
+            successButton.disabled = false;
+            modalButton.disabled = false;
         });
 
         // Adiciona o evento ao ícone de planilha (botão Excel)
