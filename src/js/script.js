@@ -9,22 +9,64 @@ document.addEventListener("DOMContentLoaded", function () { // Consolidando o ev
     }
 
     // Seleção do dropdown e manipulação de exibição de PDF e formulário
-    document.getElementById("inputGroupSelect04").addEventListener("change", function () {
-        const selectedValue = this.value;
-        const pdfDiv = document.getElementById("pdfDiv");
-        const formDiv = document.getElementById("formDiv");
+document.getElementById("inputGroupSelect04").addEventListener("change", function () {
+    const selectedValue = this.value;
+    const pdfDiv = document.getElementById("pdfDiv");
+    const formDiv = document.getElementById("formDiv");
 
-        if (selectedValue === "2") {
-            // Exibe o PDF e oculta o formulário
-            formDiv.style.display = "none";
-            pdfDiv.style.display = "flex";
-        } else if (selectedValue === "1") {
-            // Exibe o formulário e oculta o PDF
-            pdfDiv.style.display = "none";
-            formDiv.style.display = "grid";
-            gerarFormulario(); // Gera o formulário vazio
-        }
+    // Limpar qualquer botão existente nas duas divs
+    clearExistingButton(pdfDiv);
+    clearExistingButton(formDiv);
+
+    if (selectedValue === "2") {
+        // Exibe o PDF e oculta o formulário
+        formDiv.style.display = "none";
+        pdfDiv.style.display = "flex";
+
+        // Adiciona o botão "Gerar Novo Cálculo" no PDF
+        addGenerateButton(pdfDiv);
+    } else if (selectedValue === "1") {
+        // Exibe o formulário e oculta o PDF
+        pdfDiv.style.display = "none";
+        formDiv.style.display = "grid";
+        gerarFormulario(); // Gera o formulário vazio
+
+        // Adiciona o botão "Gerar Novo Cálculo" no formulário
+        addGenerateButton(formDiv);
+    }
+});
+
+// Função para adicionar o botão "Gerar Novo Cálculo"
+function addGenerateButton(container) {
+    // Verifica se o botão já foi adicionado
+    const existingButton = document.getElementById("gerarNovoCalculoButton");
+    if (existingButton) {
+        return; // Se o botão já existe, não adiciona novamente
+    }
+
+    // Criação do botão
+    const button = document.createElement("button");
+    button.id = "gerarNovoCalculoButton";
+    button.innerText = "Gerar Novo Cálculo";
+    button.classList.add("btn", "btn-primary", "rounded", "mt-3", "d-block", "w-100");
+
+    // Adiciona o evento de refresh
+    button.addEventListener("click", function () {
+        location.reload(); // Recarrega a página
     });
+
+    // Adiciona o botão ao contêiner (pdfDiv ou formDiv)
+    container.appendChild(button);
+}
+
+// Função para limpar o botão caso ele já exista
+function clearExistingButton(container) {
+    const existingButton = container.querySelector("#gerarNovoCalculoButton");
+    if (existingButton) {
+        existingButton.remove();
+    }
+}
+
 
     // Função para gerar formulário
     function gerarFormulario() {
@@ -102,18 +144,90 @@ document.addEventListener("DOMContentLoaded", function () { // Consolidando o ev
             indice_smp: indice_smp,
             ctc: ctc,
             argila: argila,
-            area_plantada: area_plantada
+            areaPlantada: area_plantada  
         };
     
-        const dadosJSON = JSON.stringify(dados, null, 2);
-        console.log(dadosJSON);
-    
-        alert("Dados transformados em JSON:\n" + dadosJSON);
+        enviarParaServidor(dados); // Envia para o servidor
+    }
+
+    function enviarParaServidor(dados) {
+        console.log("Dados enviados para o servidor:", dados); // Verifique os dados que estão sendo enviados
+        fetch('http://127.0.0.1:8000/macieiras/pre-plantio/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(dados),
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro ao enviar dados para o servidor.');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Resposta do servidor:', data); // Verifique a resposta do servidor no console
+            if (data && data.dados) {
+                exibirResultados(data); // Enviar o objeto completo para exibir
+            } else {
+                alert('A resposta do servidor não contém os dados esperados.');
+            }
+        })
+        .catch(error => {
+            console.error('Erro:', error);
+            alert('Erro ao enviar os dados. Verifique os campos e tente novamente.');
+        });
     }
     
     
-
-
+    function exibirResultados(dados) {
+        console.log("formResultDiv:", document.getElementById('formResultDiv'));
+        console.log("formShowResults:", document.getElementById('formShowResults'));
+        console.log("Verificando os elementos do DOM...");
+    
+        const formResultDiv = document.getElementById('formResultDiv');
+        const formShowResults = document.getElementById('formShowResults');
+    
+        if (!formResultDiv || !formShowResults) {
+            console.error("Erro: Os elementos não estão presentes no DOM.");
+            return;
+        }
+    
+        formResultDiv.style.display = 'block'; // Exibe a div
+        formShowResults.innerHTML = `
+            <p><strong>Fósforo por hectare:</strong> ${dados.p_quant_hec}</p>
+            <p><strong>Fósforo total:</strong> ${dados.p_quant_total}</p>
+            <p><strong>Potássio por hectare:</strong> ${dados.k_quant_hec}</p>
+            <p><strong>Potássio total:</strong> ${dados.k_quant_total}</p>
+            <h4>Calagem:</h4>
+            <ul>
+                <li><strong>Calcário Calcítico:</strong> ${dados.calagem['Calcario Calcítico'][0]} (total: ${dados.calagem['Calcario Calcítico'][1]})</li>
+                <li><strong>Calcário Dolomítico:</strong> ${dados.calagem['Calcario Dolomitico'][0]} (total: ${dados.calagem['Calcario Dolomitico'][1]})</li>
+            </ul>
+        `;
+    }
+    
+    
+    
+    
+    
+    
+    
+    function exibirResultados(dados) {
+        // Exemplo de exibição
+        const resultadosDiv = document.getElementById('resultados'); // Certifique-se de ter essa div no HTML
+        resultadosDiv.innerHTML = `
+            <h3>Resultados:</h3>
+            <p>Potássio por hectare: ${dados.k_quant_hec}</p>
+            <p>Potássio total: ${dados.k_quant_total}</p>
+            <p>Fósforo por hectare: ${dados.p_quant_hec}</p>
+            <p>Fósforo total: ${dados.p_quant_total}</p>
+            <p>Calagem necessária: ${dados.calagem}</p>
+        `;
+        resultadosDiv.style.display = 'block'; // Torna visível, caso esteja oculto
+    }
+    
+    
     window.processar = function () {
             let dados = {};
             let amostrasIds = new Map();
