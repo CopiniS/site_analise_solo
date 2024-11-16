@@ -65,6 +65,7 @@ document.addEventListener("DOMContentLoaded", function () { // Consolidando o ev
 
         // Ordem correta dos campos conforme o JSON
         const fields = [
+            { label: "Ph Água", id: "ph" },
             { label: "Fósforo", id: "fosforo" },
             { label: "Potássio", id: "potassio" },
             { label: "Cálcio", id: "calcio" },
@@ -121,6 +122,7 @@ document.addEventListener("DOMContentLoaded", function () { // Consolidando o ev
 
     // Função para converter em JSON
     function transformarEmJSON() {
+        const ph = document.getElementById('ph').value;
         const fosforo = document.getElementById('fosforo').value;
         const potassio = document.getElementById('potassio').value;
         const calcio = document.getElementById('calcio').value;
@@ -131,6 +133,7 @@ document.addEventListener("DOMContentLoaded", function () { // Consolidando o ev
         const area_plantada = document.getElementById('area_plantada').value;
 
         const dados = {
+            ph_agua: ph,
             fosforo: fosforo,
             potassio: potassio,
             calcio: calcio,
@@ -250,6 +253,7 @@ document.addEventListener("DOMContentLoaded", function () { // Consolidando o ev
                 let melichBoolean = false;
                 let prBoolean = false;
                 let intSMP = 0;
+                let intPH = 0;
                 let intCTC = 0;
                 let intK = 0;
                 let intCa = 0;
@@ -279,6 +283,7 @@ document.addEventListener("DOMContentLoaded", function () { // Consolidando o ev
                                     const labNumber = text.items[i += 3].str;
 
                                     // considerando valores da primeira linha imutáveis.
+                                    adicionarPropriedade("ph_agua", text.items[89].str.replace(/,/g, '.'));
                                     adicionarPropriedade("indice_smp", text.items[91].str.replace(/,/g, '.'));
                                     adicionarPropriedade("calcio", text.items[95].str.replace(/,/g, '.'));
                                     adicionarPropriedade("magnesio", text.items[97].str.replace(/,/g, '.'));
@@ -289,6 +294,7 @@ document.addEventListener("DOMContentLoaded", function () { // Consolidando o ev
                                     i = 105;
 
                                     // Valores de ref ao verificar próximas linhas.
+                                    intPH = 89;
                                     intSMP = 91;
                                     intCa = 95;
                                     intMg = 97;
@@ -332,12 +338,14 @@ document.addEventListener("DOMContentLoaded", function () { // Consolidando o ev
 
                                         if (isOnlyNumbers(value)) {
                                             // o gap entre cada linha é de 28. 
+                                            intPH += 28;
                                             intSMP += 28;
                                             intCTC += 28;
                                             intK += 28;
                                             intCa += 28;
                                             intMg += 28;
 
+                                            adicionarPropriedade("ph_agua", text.items[intPH].str.replace(/,/g, '.'));
                                             adicionarPropriedade("indice_smp", text.items[intSMP].str.replace(/,/g, '.'));
                                             adicionarPropriedade("ctc", text.items[intCTC].str.replace(/,/g, '.'));
                                             adicionarPropriedade("potassio", text.items[intK].str.replace(/,/g, '.'));
