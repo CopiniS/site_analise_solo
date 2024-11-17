@@ -5,7 +5,6 @@
 ## Rodar o projeto:
 
 1. Fazer o clone do projeto com o comando:
-bash
 ```
 git clone https://github.com/CopiniS/site_analise_solo.git
 ```
