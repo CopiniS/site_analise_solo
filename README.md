@@ -2,12 +2,12 @@
 ![image](https://github.com/user-attachments/assets/15f17b9f-3795-4365-bad1-59c301f1d9a3)
 
 
-##Rodar o projeto:
+## Rodar o projeto:
 
 1. Fazer o clone do projeto com o comando:
 bash
 ```
-git clone url
+git clone https://github.com/CopiniS/site_analise_solo.git
 ```
 
 2. Abrir a pasta no Vscode;
