@@ -13,6 +13,6 @@ git clone https://github.com/CopiniS/site_analise_solo.git
 
 3. Instalar a extensao 'live server';
 
-4. Clicar no botao 'go live' em baixo na direita com a pasta clonada aberta no Vscode;
+4. Clicar no botao 'go live', em baixo na direita, com a pasta clonada aberta no Vscode;
 
-5. já no navegador na janela aberta pelo live server, clicar em 'src', 'pages' e 'home'.
+5. Já no navegador, na janela aberta pelo live server, clicar em 'src', 'pages' e 'home'.
