@@ -123,6 +123,5 @@ export function criarDivs(lista) {
         container.appendChild(div);
     }
 
-    container.innerHTML += '<button class="btn btn-outline-primary" onclick="location.reload()">Calcular Novamente</button>';
 
 }
