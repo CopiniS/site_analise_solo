@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", function () { // Consolidando o ev
         });
 
         formDiv.innerHTML += `
-        <div id="loading" class="center" style="display: none;"> </div>
+        <div id="loading" class="center" style="display: block;justify-content: center;margin: auto;padding: 20px;"> </div>
         `;
 
         // Botão para converter os dados em JSON
@@ -122,16 +122,35 @@ document.addEventListener("DOMContentLoaded", function () { // Consolidando o ev
 
     // Função para converter em JSON
     function transformarEmJSON() {
-        const ph = document.getElementById('ph').value;
-        const fosforo = document.getElementById('fosforo').value;
-        const potassio = document.getElementById('potassio').value;
-        const calcio = document.getElementById('calcio').value;
-        const magnesio = document.getElementById('magnesio').value;
-        const indice_smp = document.getElementById('indice_smp').value;
-        const ctc = document.getElementById('ctc').value;
-        const argila = document.getElementById('argila').value;
-        const area_plantada = document.getElementById('area_plantada').value;
-
+        const ph = document.getElementById('ph').value.trim();
+        const fosforo = document.getElementById('fosforo').value.trim();
+        const potassio = document.getElementById('potassio').value.trim();
+        const calcio = document.getElementById('calcio').value.trim();
+        const magnesio = document.getElementById('magnesio').value.trim();
+        const indice_smp = document.getElementById('indice_smp').value.trim();
+        const ctc = document.getElementById('ctc').value.trim();
+        const argila = document.getElementById('argila').value.trim();
+        const area_plantada = document.getElementById('area_plantada').value.trim();
+    
+        const campos = [
+            { label: "Ph Água", value: ph },
+            { label: "Fósforo", value: fosforo },
+            { label: "Potássio", value: potassio },
+            { label: "Cálcio", value: calcio },
+            { label: "Magnésio", value: magnesio },
+            { label: "Índice SMP", value: indice_smp },
+            { label: "CTC", value: ctc },
+            { label: "Argila", value: argila },
+            { label: "Área Plantada", value: area_plantada }
+        ];
+    
+        const campoVazio = campos.find(campo => campo.value === "");
+    
+        if (campoVazio) {
+            alert(`O campo "${campoVazio.label}" é obrigatório e está vazio.`);
+            return; 
+        }
+    
         const dados = {
             ph_agua: ph,
             fosforo: fosforo,
@@ -143,6 +162,7 @@ document.addEventListener("DOMContentLoaded", function () { // Consolidando o ev
             argila: argila,
             areaPlantada: area_plantada
         };
+    
         const formDiv = document.getElementById("formDiv");
 
         let path = "macieiras/pre-plantio/";

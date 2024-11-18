@@ -27,7 +27,7 @@ export function criarDivs(lista) {
                         <label for="floatingInputGrid_${chave}">Área plantada em Hectares</label>
                     </div>
                     <div style="margin-left: 10px">
-                        <div id="loading" style="display: none;"> </div>
+                        <div id="loading_${chave}" style="display: none;"> </div>
                         <button type="button" class="btn btn-success">Calcular</button>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#detalhesModal" disabled>
                             Visualizar Resultados
@@ -56,7 +56,7 @@ export function criarDivs(lista) {
             
             successButton.disabled = true;
 
-            const loading = document.getElementById('loading');
+            const loading = document.getElementById(`loading_${chave}`); 
             loading.innerHTML = `
             <div class="spinner-border spinner-border-sm" role="status">
                 <span class="visually-hidden">Loading...</span>
