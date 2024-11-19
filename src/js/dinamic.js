@@ -54,6 +54,17 @@ export function criarDivs(lista) {
                 path = "gramineas-leguminosas-frias/pre-plantio/";
             }
             
+            // Referência ao campo de input dentro do div
+            const areaPlantadaInput = div.querySelector(`#floatingInputGrid_${chave}`);
+    
+            // Obtenha o valor inserido no campo de input
+            const areaPlantada = areaPlantadaInput.value;
+    
+            if (!areaPlantada) {
+                alert("Por favor, preencha a área plantada em hectares.");
+                return;
+            }
+            
             successButton.disabled = true;
 
             const loading = document.getElementById(`loading_${chave}`); 
@@ -64,16 +75,6 @@ export function criarDivs(lista) {
         `;
             loading.style.display = "contents";
 
-            // Referência ao campo de input dentro do div
-            const areaPlantadaInput = div.querySelector(`#floatingInputGrid_${chave}`);
-
-            // Obtenha o valor inserido no campo de input
-            const areaPlantada = areaPlantadaInput.value;
-
-            if (!areaPlantada) {
-                alert("Por favor, preencha a área plantada em hectares.");
-                return;
-            }
 
             // Atualizando o objeto no Map
             const item = lista.get(chave);
