@@ -64,7 +64,7 @@ export function criarDivs(lista) {
                 alert("Por favor, preencha a área plantada em hectares.");
                 return;
             }
-            
+
             successButton.disabled = true;
 
             const loading = document.getElementById(`loading_${chave}`); 
@@ -107,10 +107,10 @@ export function criarDivs(lista) {
             <br>
             <h4>Dados Calculados:</h4>
             <ul>
-                <li><strong>K Quant Hectare:</strong> ${responseData.dados.k_quant_hec.toFixed(2)}</li>
-                <li><strong>K Quant Total:</strong> ${responseData.dados.k_quant_total.toFixed(2)}</li>
-                <li><strong>P Quant Hectare:</strong> ${responseData.dados.p_quant_hec.toFixed(2)}</li>
-                <li><strong>P Quant Total:</strong> ${responseData.dados.p_quant_total.toFixed(2)}</li>
+                <li><strong>K₂O Quant Hectare:</strong> ${responseData.dados.k_quant_hec.toFixed(2)}</li>
+                <li><strong>K₂O Quant Total:</strong> ${responseData.dados.k_quant_total.toFixed(2)}</li>
+                <li><strong>P₂O₅ Quant Hectare:</strong> ${responseData.dados.p_quant_hec.toFixed(2)}</li>
+                <li><strong>P₂O₅ Quant Total:</strong> ${responseData.dados.p_quant_total.toFixed(2)}</li>
             </ul>
             <h4>Calagem:</h4>
             <ul>
